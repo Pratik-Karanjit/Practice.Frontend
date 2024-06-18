@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Changer</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Color Changer</h1>
+    <button id="redButton">Red</button>
+    <button id="greenButton">Green</button>
+    <button id="blueButton">Blue</button>
+    <button id="randomButton">Random Color</button>
+
+    <script>
+      document
+        .getElementById("redButton")
+        .addEventListener("click", function () {
+          document.body.style.backgroundColor = "red";
+        });
+
+      document
+        .getElementById("greenButton")
+        .addEventListener("click", function () {
+          document.body.style.backgroundColor = "green";
+        });
+
+      document
+        .getElementById("blueButton")
+        .addEventListener("click", function () {
+          document.body.style.backgroundColor = "blue";
+        });
+
+      document
+        .getElementById("randomButton")
+        .addEventListener("click", function () {
+          const randomColor = `#${Math.floor(Math.random() * 16777215).toString(
+            16
+          )}`;
+          document.body.style.backgroundColor = randomColor;
+        });
+    </script>
+  </body>
+</html>

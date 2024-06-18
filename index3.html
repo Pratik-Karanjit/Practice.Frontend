@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Image Changer</title>
+    <style>
+      body {
+        background-image: url("default.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        margin: 0;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+      p {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Background Image Changer</h1>
+    <div>
+      <button id="prevButton">Previous Image</button>
+      <button id="nextButton">Next Image</button>
+    </div>
+
+    <script>
+      const images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+      let currentImageIndex = 0;
+
+      function changeBackgroundImage(index) {
+        document.body.style.backgroundImage = `url('${images[index]}')`;
+      }
+
+      document
+        .getElementById("nextButton")
+        .addEventListener("click", function () {
+          currentImageIndex = (currentImageIndex + 1) % images.length;
+          changeBackgroundImage(currentImageIndex);
+        });
+
+      document
+        .getElementById("prevButton")
+        .addEventListener("click", function () {
+          currentImageIndex =
+            (currentImageIndex - 1 + images.length) % images.length;
+          changeBackgroundImage(currentImageIndex);
+        });
+
+      // Initial background image
+      changeBackgroundImage(currentImageIndex);
+    </script>
+  </body>
+</html>

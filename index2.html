@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Survey Form</title>
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #4caf50;
+        margin-bottom: 20px;
+      }
+
+      form {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      form div {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="number"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="number"]:focus,
+      input[type="password"]:focus {
+        border-color: #4caf50;
+      }
+
+      button {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        padding: 15px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .gender-labels {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+
+      .interest-labels {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+
+      .error-message {
+        color: #ff0000;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Survey Form</h1>
+    <form id="surveyForm">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <span class="error-message" id="passwordError"></span>
+      </div>
+      <div>
+        <label>Gender:</label>
+        <div class="gender-labels">
+          <label
+            ><input type="radio" name="gender" value="male" required />
+            Male</label
+          >
+          <label
+            ><input type="radio" name="gender" value="female" /> Female</label
+          >
+          <label
+            ><input type="radio" name="gender" value="other" /> Other</label
+          >
+        </div>
+      </div>
+      <div>
+        <label>Interests:</label>
+        <div class="interest-labels">
+          <label
+            ><input type="checkbox" name="interests" value="coding" />
+            Coding</label
+          >
+          <label
+            ><input type="checkbox" name="interests" value="music" />
+            Music</label
+          >
+          <label
+            ><input type="checkbox" name="interests" value="sports" />
+            Sports</label
+          >
+        </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+      document
+        .getElementById("surveyForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const age = document.getElementById("age").value;
+          const gender = document.querySelector(
+            'input[name="gender"]:checked'
+          ).value;
+          const interests = Array.from(
+            document.querySelectorAll('input[name="interests"]:checked')
+          ).map((interest) => interest.value);
+          const password = document.getElementById("password").value;
+
+          // Validate password length
+          if (password.length < 6) {
+            document.getElementById("passwordError").textContent =
+              "Password must be at least 6 characters long.";
+            return;
+          } else if (password.length > 15) {
+            document.getElementById("passwordError").textContent =
+              "Password must not be longer than 15 characters long.";
+            return;
+          } else {
+            document.getElementById("passwordError").textContent = "";
+          }
+
+          const result = `
+          Name: ${name} <br>
+          Email: ${email} <br>
+          Age: ${age} <br>
+          Gender: ${gender} <br>
+          Interests: ${interests.join(", ")}
+        `;
+
+          document.getElementById("result").innerHTML = result;
+          window.alert("Form submitted successfully!");
+        });
+    </script>
+  </body>
+</html>
